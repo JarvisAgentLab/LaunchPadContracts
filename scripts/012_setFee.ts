@@ -1,0 +1,17 @@
+import * as hre from "hardhat";
+import {execute} from "../utils/utils";
+import {bondingParams} from "../config";
+
+async function main() {
+  const {deployments, getNamedAccounts, ethers} = hre;
+  const {owner, treasury} = await getNamedAccounts();
+
+  await execute(hre, "bonding", owner, "setFee", bondingParams.fee, treasury);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
